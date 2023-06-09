@@ -51,3 +51,44 @@ export const ACTIONS = [
 ] as const;
 
 export type Action = (typeof ACTIONS)[number];
+
+export interface EventPayload {
+  action: Action;
+  sessionId?: string;
+  pageUrl?: string;
+  destinationUrl?: string;
+  label?: string;
+  locale?: string;
+  timestamp?: string;
+  bot?: string; // Whether the event is from a bot
+  browserAgent?: {
+    browser?: string;
+    browserVersion?: string;
+    os?: string;
+    osVersion?: string;
+    device?: string;
+    deviceClass?: string;
+    userAgent?: string;
+  };
+  clientSdk?: Record<string, any>;
+  count?: number;
+  customTags?: Record<string, string>;
+  customValues?: Record<string, number>;
+  chat?: ChatDomainProperties;
+  entity?:
+    | {
+        entityId: string;
+      }
+    | {
+        entityUid: number;
+      };
+  ip?: {
+    address: string;
+    algorithm?: string;
+  };
+}
+export interface ChatDomainProperties {
+  botId: string;
+  conversationId: string;
+  sessionId: string;
+}

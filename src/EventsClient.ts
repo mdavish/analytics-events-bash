@@ -1,16 +1,9 @@
-import { type Action } from "./types";
+import type { Action, EventPayload } from "./types";
 
 interface EventsClientsOptions {
   apiKey: string; // TODO: Add optional token
   env: "QA" | "PROD";
   cloudProvider?: "AWS"; // TODO Add more?
-}
-
-interface EventPayload {
-  action: Action;
-  pageUrl?: string;
-  locale?: string;
-  timestamp?: string;
 }
 
 interface EventsAPIResponse {
