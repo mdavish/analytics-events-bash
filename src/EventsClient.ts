@@ -13,6 +13,10 @@ interface EventPayload {
   timestamp?: string;
 }
 
+interface EventsAPIResponse {
+  id: string;
+}
+
 export default class EventsClient {
   public readonly apiKey: string;
   public readonly env: EventsClientsOptions["env"];
@@ -28,14 +32,21 @@ export default class EventsClient {
     console.log("EventsClient constructor");
   }
 
-  public async report({ action }: EventPayload) {
+  public async report(event: EventPayload) {
     const res = await fetch(this.endpoints[this.env], {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${this.apiKey}`,
+        Authorization: `KEY ${this.apiKey}`,
+        "Content-Type": "application/json",
       },
+      body: JSON.stringify(event),
     });
-    console.log({ res });
-    return res;
+    if (!res.ok) {
+      throw new Error(
+        `Events API responded with ${res.status}. ${res.statusText}`
+      );
+    }
+    const resJson = await res.json();
+    return resJson as EventsAPIResponse;
   }
 }

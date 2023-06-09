@@ -11,8 +11,7 @@ export async function main() {
     action: "ADD_TO_CART",
     pageUrl: "https://www.yext.com",
   });
-  const json = await response.json();
-  console.log({ json });
+  console.log({ response });
 }
 
 main();
