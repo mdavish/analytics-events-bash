@@ -1,4 +1,5 @@
 import EventsClient from "./EventsClient";
+import { v4 as uuid } from "uuid";
 
 export async function main() {
   console.log("Initializing EventsClient...");
@@ -8,8 +9,10 @@ export async function main() {
   });
   console.log("Initialized EventsClient!");
   const response = await myClient.report({
-    action: "ADD_TO_CART",
+    action: "CALL_TO_ACTION",
     pageUrl: "https://www.yext.com",
+    destinationUrl: "https://www.yext.com/chat",
+    sessionId: uuid(),
   });
   console.log({ response });
 }
